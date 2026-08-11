@@ -27,10 +27,15 @@ public:
         // return v;
         vector<int>dp(n+1,-1);
         vector<int>v(n+1);
-        for(int i=0;i<=n;i++)
+        dp[0]=0;
+        if(n>0)
+        dp[1]=1;
+        for(int i=2;i<=n;i++)
         {
-            v[i]=f(i,dp);
+            int a=i>>1;
+            int b=i&1;
+            dp[i]=b+dp[a];
         }
-        return v;
+        return dp;
     }
 };
