@@ -1,43 +1,35 @@
 class Solution {
 public:
-    bool valid(string s)
+    void f(int n, string &s, int open, int close, vector<string>& ans)
+{
+    if(s.size() == 2*n)
     {
-        stack<int>st;
-        int i=0;
-        while(i<s.size())
-        {
-            if(s[i]=='(')
-            {
-                st.push('(');
-            }
-            else
-            {
-                if(st.empty()) return false;
-                st.pop();
-            }
-            i++;
-        }
-        if(st.empty())return true;
-        return false;
+        ans.push_back(s);
+        return;
     }
-    void f(int n,string &s,vector<string>&v)
+
+    if(open < n)
     {
-        if(s.size()==2*n)
-        {
-            if(valid(s))v.push_back(s);
-            return;
-        }
-        s.push_back(')');
-        f(n,s,v);
-        s.pop_back();
         s.push_back('(');
-        f(n,s,v);
+        f(n, s, open+1, close, ans);
         s.pop_back();
     }
-    vector<string> generateParenthesis(int n) {
-        string s="(";
-        vector<string>v;
-        f(n,s,v);
-        return v;
+
+    if(close < open)
+    {
+        s.push_back(')');
+        f(n, s, open, close+1, ans);
+        s.pop_back();
     }
+}
+
+vector<string> generateParenthesis(int n)
+{
+    vector<string> ans;
+    string s = "";
+
+    f(n, s, 0, 0, ans);
+
+    return ans;
+}
 };
