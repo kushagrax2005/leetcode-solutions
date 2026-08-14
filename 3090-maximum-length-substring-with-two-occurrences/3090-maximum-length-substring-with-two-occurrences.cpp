@@ -9,12 +9,9 @@ public:
         while(j<n)
         {
             m[s[j]]++;
-            if(m[s[j]]==3)
-            {
-                while(m[s[j]]==3)
-                {m[s[i]]--;
-                i++;}
-            }
+            while(m[s[j]]==3)
+            {m[s[i]]--;
+            i++;}
             maxi=max(maxi,j-i+1);
             j++;
         }
