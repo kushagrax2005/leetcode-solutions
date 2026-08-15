@@ -1,17 +1,17 @@
 class Solution {
 public:
-    void dfs(int i,int j,vector<vector<int>>& image,vector<int>&vis,int color,int a)
+    void dfs(int z,vector<vector<int>>& image,vector<int>&vis,int color,int a)
     {
-        vis[50*i+j]=1;
-        image[i][j]=color;
+        vis[z]=1;
+        image[z/50][z%50]=color;
         vector<pair<int,int>>v={{-1,0},{0,-1},{1,0},{0,1}};
         for(int k=0;k<4;k++)
         {
-            int x=i+v[k].first;
-            int y=j+v[k].second;
+            int x=z/50+v[k].first;
+            int y=z%50+v[k].second;
             if(x>=0&&x<image.size()&&y>=0&&y<image[0].size()&&image[x][y]==a&&!vis[50*x+y])
             {
-               dfs(x,y,image,vis,color,a);
+               dfs(x*50+y,image,vis,color,a);
             }
         }
     }
@@ -22,7 +22,7 @@ public:
         vector<pair<int,int>>v={{-1,0},{0,-1},{1,0},{0,1}};
         int a=image[sr][sc];
 
-        dfs(sr,sc,image,vis,color,a);
+        dfs(50*sr+sc,image,vis,color,a);
 
 
         // queue<int>q;
