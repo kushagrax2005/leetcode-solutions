@@ -29,12 +29,14 @@ public:
         // return maxi;
 
         int n=is.size();
+        int c=0;
         // int i=0;
         int maxi=0;
         vector<int>vis(n,0);
         for(int i=0;i<n;i++)
         {
             if(vis[i])continue;
+            c++;
             vector<int>ls;
             queue<int>q;
             q.push(i);
@@ -55,6 +57,6 @@ public:
             }
             maxi=maxi-ls.size()+1;
         }
-        return maxi+n;
+        return c;
     }
 };
