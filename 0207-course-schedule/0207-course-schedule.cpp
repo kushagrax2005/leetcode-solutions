@@ -1,12 +1,12 @@
 class Solution {
 public:
-    void dfs(int i,int k,vector<vector<int>>&v,vector<int>&vis)
+    void dfs(int i,vector<vector<int>>&v,vector<int>&vis)
     {
         if(vis[i]==2)return;
         vis[i]++;
         for(int j=0;j<v[i].size();j++)
         {
-            dfs(v[i][j],k,v,vis);
+            dfs(v[i][j],v,vis);
         }
     }
     bool canFinish(int numCourses, vector<vector<int>>& p) {
@@ -20,11 +20,13 @@ public:
             i++;
         }
         i=0;
-        bool answer=true;
+        vector<int>vv(n,0);
         while(i<p.size())
         {
             vector<int>vis(n,0);
-            dfs(p[i][0],p[i][0],v,vis);
+            if(!vv[p[i][0]])
+            dfs(p[i][0],v,vis);
+            vv[p[i][0]]=1;
             if(vis[p[i][0]]>1)return false;
             i++;
         }
