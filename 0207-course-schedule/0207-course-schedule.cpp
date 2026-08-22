@@ -1,13 +1,38 @@
 class Solution {
 public:
-    void dfs(int i,vector<vector<int>>&v,vector<int>&vis)
+    // bool dfs(int i,vector<vector<int>>&v,vector<int>&vis)
+    // {
+    //     vis[i]=1;
+    //     for(auto it:v[i])
+    //     {
+    //         if(!vis[it]){
+    //         if(dfs(it,v,vis)==true)return true;}
+    //         else 
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+    bool dfs(int i, vector<vector<int>>& v, vector<int>& vis)
     {
-        if(vis[i]==2)return;
-        vis[i]++;
-        for(int j=0;j<v[i].size();j++)
+        if(vis[i] == 1)
+            return true;   
+
+        if(vis[i] == 2)
+            return false;
+
+        vis[i] = 1;
+
+        for(auto it : v[i])
         {
-            dfs(v[i][j],v,vis);
+            if(dfs(it, v, vis))
+                return true;
         }
+        vis[i] = 2;
+
+        return false;
     }
     bool canFinish(int numCourses, vector<vector<int>>& p) {
         int m=p.size();
@@ -20,14 +45,28 @@ public:
             i++;
         }
         i=0;
-        vector<int>vv(n,0);
-        while(i<p.size())
+        
+        // vector<int>vv(n,0);
+        // while(i<p.size())
+        // {
+        //     vector<int>vis(n,0);
+        //     if(!vv[p[i][0]])
+        //     dfs(p[i][0],v,vis);
+        //     vv[p[i][0]]=1;
+        //     if(vis[p[i][0]]>1)return false;
+        //     i++;
+        // }
+        // return true;
+
+        bool ans;
+        vector<int>vis(n,0);
+        i=0;
+        while(i<n)
         {
-            vector<int>vis(n,0);
-            if(!vv[p[i][0]])
-            dfs(p[i][0],v,vis);
-            vv[p[i][0]]=1;
-            if(vis[p[i][0]]>1)return false;
+            if(!vis[i]&&!v[i].empty())
+            {
+                if(dfs(i,v,vis))return false;
+            }
             i++;
         }
         return true;
