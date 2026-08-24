@@ -18,25 +18,13 @@ public:
         //  unordered_map<int,int>mm;
          for(int j=0;j<n;j++)
          {
-            if(b[0][j]=='O')
-            {
-                dfs(0,j,b);
-            }
-            if(b[m-1][j]=='O')
-            {
-                dfs(m-1,j,b);
-            }
+            dfs(0,j,b);
+            dfs(m-1,j,b);
          }
          for(int i=1;i<m-1;i++)
          {
-            if(b[i][0]=='O')
-            {
-                dfs(i,0,b);
-            }
-            if(b[i][n-1]=='O')
-            {
-                dfs(i,n-1,b);
-            }
+            dfs(i,0,b);
+            dfs(i,n-1,b);
          }
          for(int i=0;i<m;i++)
          {
