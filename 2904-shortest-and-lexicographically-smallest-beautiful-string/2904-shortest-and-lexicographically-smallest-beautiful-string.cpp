@@ -26,12 +26,12 @@ public:
             j++;
         }
         if(!flag)return "";
-        i=0;
-        while(ss[i]=='0')
-        {
-            i++;
-        }
-        ss=ss.substr(i,ss.size()-i+1);
+        // i=0;
+        // while(ss[i]=='0')
+        // {
+        //     i++;
+        // }
+        // ss=ss.substr(i,ss.size()-i+1);
         if(flag)return ss;
         return ss;
     }
