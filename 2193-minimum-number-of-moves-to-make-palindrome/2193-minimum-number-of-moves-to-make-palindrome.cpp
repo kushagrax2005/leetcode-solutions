@@ -16,29 +16,30 @@ public:
             return;
         }
         
-        // int a=n-1;
-        // int b=n-2;
-        // while(b>=0&&c[a]!=c[b])b--;
+        int a=n-1;
+        int b=0;
+        while(b<a&&c[a]!=c[b])b++;
 
-        // if (b<0)
-        // {
-        //     ans += n / 2;
-        //     c.erase(a, 1);
-        //     f(c, ans);
-        //     return;
-        // }
+        if (b==a)
+        {
+            ans += n / 2;
+            c.erase(a, 1);
+            f(c, ans);
+            return;
+        }
         
         int x=n-1-j;
-        // int y=b;
-        ans+=x;
+        int y=b;
+        if(x<y)
+        {ans+=x;
         c.erase(j,1);
-        c.erase(i,1);
-        // else
-        // {
-        // ans+=y;
-        // c.erase(a,1);
-        // c.erase(b,1);
-        // }
+        c.erase(i,1);}
+        else
+        {
+        ans+=y;
+        c.erase(a,1);
+        c.erase(b,1);
+        }
         f(c,ans);
     }
     int minMovesToMakePalindrome(string s) {
