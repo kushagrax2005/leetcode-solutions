@@ -19,9 +19,9 @@ public:
             pq.pop();
             for(auto it:v[node.second])
             {
-                if(dis[it.first]>dis[node.second]+it.second)
+                if(dis[it.first]>node.first+it.second)
                 {
-                    dis[it.first]=dis[node.second]+it.second;
+                    dis[it.first]=node.first+it.second;
                     pq.push({dis[it.first],it.first});
                 }
             }
