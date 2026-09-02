@@ -9,18 +9,20 @@ public:
         vector<int>dis(n+1,INT_MAX);
         dis[k]=0;
         queue<int>q;
-        q.push(k);
-        int node=k;
-        while(!q.empty())
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        // q.push(k);
+        pair<int,int> node={0,k};
+        pq.push(node);
+        while(!pq.empty())
         {
-            node=q.front();
-            q.pop();
-            for(auto it:v[node])
+            node=pq.top();
+            pq.pop();
+            for(auto it:v[node.second])
             {
-                if(dis[it.first]>dis[node]+it.second)
+                if(dis[it.first]>dis[node.second]+it.second)
                 {
-                    q.push(it.first);
-                    dis[it.first]=dis[node]+it.second;
+                    dis[it.first]=dis[node.second]+it.second;
+                    pq.push({dis[it.first],it.first});
                 }
             }
         }
