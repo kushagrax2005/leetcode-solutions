@@ -17,7 +17,10 @@ public:
             sos(i,t-nums[i],nums,vis,vec);
             vis.pop_back();
         }
-        sos(i-1,t,nums,vis,vec);
+        // sos(i-1,t,nums,vis,vec);
+        int j=i;
+        while(j>=0&&nums[j]==nums[i])j--;
+        sos(j,t,nums,vis,vec);
         // return dp[i][t]=take||not_take;
         return ;
     }
