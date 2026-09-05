@@ -11,16 +11,16 @@ public:
         if(t<0||i<0)return ;
         // if(dp[i][t]!=-1)return dp[i][t];
         // bool take=false;
-        if(t-nums[i]>=0)
-        {
+        // if(t-nums[i]>=0)
+        // {
             vis.push_back(nums[i]);
             sos(i,t-nums[i],nums,vis,vec);
             vis.pop_back();
-        }
-        // sos(i-1,t,nums,vis,vec);
-        int j=i;
-        while(j>=0&&nums[j]==nums[i])j--;
-        sos(j,t,nums,vis,vec);
+        // }
+        sos(i-1,t,nums,vis,vec);
+        // int j=i;
+        // while(j>=0&&nums[j]==nums[i])j--;
+        // sos(j,t,nums,vis,vec);
         // return dp[i][t]=take||not_take;
         return ;
     }
@@ -41,7 +41,7 @@ public:
         // }
         
         vector<vector<int>>vec;
-        vector<vector<int>>dp(v.size(),vector<int>(t+1,-1));
+        // vector<vector<int>>dp(v.size(),vector<int>(t+1,-1));
         vector<int>vis;
         sos(v.size()-1,t,v,vis,vec);
         return vec;
