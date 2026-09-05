@@ -1,15 +1,11 @@
 class Solution {
 public:
-    map<vector<int>,int>m;
+    // map<vector<int>,int>m;
     void sos(int i,int t,vector<int>&nums,vector<int>&vis,vector<vector<int>>&vec)
     {
         if(t==0)
         {
-            vector<int>temp=vis;
-            sort(temp.begin(),temp.end());
-            if(!m.count(temp))
-            {vec.push_back(temp);
-            m[temp]++;}
+            vec.push_back(vis);
             return ;
         }
         if(t<0||i<0)return ;
