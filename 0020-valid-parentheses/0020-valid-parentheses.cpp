@@ -11,15 +11,16 @@ public:
             {
                 st.push(a);
             }
-            else if(a=='}'&&!st.empty()&&st.top()=='{')
+            else if(st.empty())return false;
+            else if(a=='}'&&st.top()=='{')
             {
                 st.pop();
             }
-            else if(a==']'&&!st.empty()&&st.top()=='[')
+            else if(a==']'&&st.top()=='[')
             {
                 st.pop();
             }
-            else if(a==')'&&!st.empty()&&st.top()=='(')
+            else if(a==')'&&st.top()=='(')
             {
                 st.pop();
             }
