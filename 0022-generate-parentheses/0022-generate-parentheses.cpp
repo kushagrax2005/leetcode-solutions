@@ -1,24 +1,26 @@
 class Solution {
 public:
-    void f(int n, string &s, int open, int close, vector<string>& ans)
+void f(int c,int i,int n,string &s,vector<string>&ans)
 {
-    if(s.size() == 2*n)
+    if(c==n&&i==n)
     {
         ans.push_back(s);
         return;
-    }
-
-    if(open < n)
+    }    
+    if(i<n)
     {
-        s.push_back('(');
-        f(n, s, open+1, close, ans);
-        s.pop_back();
+    s.push_back('(');
+    i++;
+    f(c,i,n,s,ans);
+    i--;
+    s.pop_back();
     }
-
-    if(close < open)
+    if(i>c)
     {
         s.push_back(')');
-        f(n, s, open, close+1, ans);
+        c++;
+        f(c,i,n,s,ans);
+        c--;
         s.pop_back();
     }
 }
@@ -27,9 +29,7 @@ vector<string> generateParenthesis(int n)
 {
     vector<string> ans;
     string s = "";
-
-    f(n, s, 0, 0, ans);
-
+    f(0, 0, n, s, ans);
     return ans;
 }
 };
