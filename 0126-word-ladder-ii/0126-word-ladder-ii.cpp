@@ -1,82 +1,79 @@
 class Solution {
 public:
-    void dfs(string node,string beginWord,unordered_map<string,vector<string>>&con,vector<vector<string>>&vec,vector<string>&v)
+    void back_track(string a,string b,unordered_map<string,vector<string>>&vv,vector<string>&v,vector<vector<string>>&ans)
     {
-        if(node==beginWord)
+        if(a==b)
         {
             vector<string> temp = v;
-            reverse(temp.begin(), temp.end());
-            vec.push_back(temp);
+            reverse(temp.begin(), temp.end()); // Reverse because we walked endWord -> beginWord
+            ans.push_back(temp);
             return;
         }
-        for(string it:con[node])
+        for(auto it:vv[a])
         {
             v.push_back(it);
-            dfs(it,beginWord,con,vec,v);
+            back_track(it,b,vv,v,ans);
             v.pop_back();
         }
     }
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& w) {
-        int n=w.size();
-        unordered_map<string,int>m;
-        for(int i=0;i<n;i++)
-        {
-            m[w[i]]=i;
+        unordered_map<string, int> m;
+        int i = 0;
+        int n = w.size();
+        
+        while (i < n) {
+            m[w[i]] = i+1;
+            i++;
         }
-        if(!m.count(endWord))return {};
-        queue<string>q;
-        string node=beginWord;
-        q.push(node);
-        // vector<int>vis(n,0);
-        unordered_map<string,int>level;
-        bool flag=false;
-        unordered_map<string,vector<string>>con;
-        while(!q.empty())
-        {
-            node=q.front();
-            q.pop();
-            if(node==endWord)flag=true;
-            for(int i=0;i<w[0].size();i++)
-            {
-                for(int j=0;j<26;j++)
-                {
-                    string s=node;
-                    char a='a'+j;
-                    if(s[i]==a)continue;
-                    s[i]=a;
-                    // if(m.count(s) && !vis[m[s]])
-                    // {
-                    //     q.push(s);
-                    //     vis[m[s]]=1;
-                    //     con[s].push_back(node);
-                    // }
-                    if(m.count(s))
-                    {
-                        if(!level.count(s))
-                        {
-                            level[s] = level[node] + 1;
-                            q.push(s);
-                            con[s].push_back(node);
-                        }
-                        else if(level[s] == level[node] + 1)
-                        {
-                            con[s].push_back(node);
-                        }
+        if (!m.count(beginWord)) {
+            m[beginWord] = 0;
+        }
+        if (!m.count(endWord))
+            return {};
+        vector<int> vis(n, 0);
+        queue<string> q;
+        string s = beginWord;
+        q.push(s);
+        int c = 0;
+        // int ans = 1;
+
+        unordered_map<string,vector<string>>vv;
+        vector<int>l(n+1,1e9);
+        l[m[beginWord]] = 0;
+        bool flag =false;
+        while (!q.empty()) {
+            int sz = q.size();
+            for (int k = 0; k < sz; k++) {
+                s = q.front();
+                q.pop();
+                if(s==endWord)flag=true;
+                for (i = 0; i < beginWord.size(); i++) {
+                    string ss=s;
+                    for (int j = 0; j < 26; j++) {
+                        ss[i] = 'a' + j;
+                        if(ss[i]==s[i])continue;
+                        if (m.count(ss) && l[m[s]] + 1 < l[m[ss]]) 
+                            {
+                                l[m[ss]] = l[m[s]] + 1;
+                                vv[ss].clear();
+                                vv[ss].push_back(s);
+                                q.push(ss);
+                            }
+                            else if (m.count(ss) && l[m[s]] + 1 == l[m[ss]])
+                            {
+                                vv[ss].push_back(s);
+                            }
                     }
                 }
             }
-        }
+            if(flag)break;
+            }
+        // return 0;
         if(!flag)return {};
-        int k=1;
-        node=endWord;
-        // while(node!=beginWord)
-        // {
-        //     int aa=m[node]
-        // }
-        vector<string>v;
-        v.push_back(node);
-        vector<vector<string>>vec;
-        dfs(node,beginWord,con,vec,v);
-        return vec;
+        vector<vector<string>>ans;
+        vector<string>vvv;
+        vvv.push_back(endWord);
+        back_track(endWord,beginWord,vv,vvv,ans);
+        return ans ;
     }
 };
