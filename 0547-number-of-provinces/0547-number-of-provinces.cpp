@@ -1,61 +1,25 @@
 class Solution {
 public:
-    void dfs(int node,vector<int>&ls,vector<int>&vis,vector<vector<int>>&is)
+    void dfs(int i,vector<vector<int>>&is,vector<int>&vis)
     {
-        vis[node]=1;
-        ls.push_back(node);
-        for(int i=0;i<vis.size();i++)
+        int node=i;
+        vis[i]=1;
+        for(int j=0;j<is[node].size();j++)
         {
-            if(i!=node && !vis[i]&&is[node][i])
-            {
-                dfs(i,ls,vis,is);
-            }
+            if(is[node][j]==1&&!vis[j])dfs(j,is,vis);
         }
     }
     int findCircleNum(vector<vector<int>>& is) {
-        // int n=is.size();
-        // int maxi=n;
-        // vector<int>vis(n,0);
-        // for(int i=0;i<n;i++)
-        // {
-        // if(!vis[i])
-        // {
-        // vector<int>ls;
-        // dfs(i,ls,vis,is);
-        // int a=ls.size();
-        // maxi=maxi-a+1;
-        // }
-        // }
-        // return maxi;
-
         int n=is.size();
-        int c=0;
-        // int i=0;
-        int maxi=0;
         vector<int>vis(n,0);
+        int c=0;
         for(int i=0;i<n;i++)
         {
-            if(vis[i])continue;
-            c++;
-            vector<int>ls;
-            queue<int>q;
-            q.push(i);
-            vis[i]=1;
-            while(!q.empty())
+            if(!vis[i])
             {
-                int node=q.front();
-                q.pop();
-                ls.push_back(node);
-                for(int j=0;j<n;j++)
-                {
-                    if(node!=j&&!vis[j]&&is[node][j])
-                    {
-                        vis[j]=1;
-                        q.push(j);
-                    }
-                }
-            }
-            maxi=maxi-ls.size()+1;
+                c++;
+                dfs(i,is,vis);
+            }    
         }
         return c;
     }
