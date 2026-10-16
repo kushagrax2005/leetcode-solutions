@@ -1,26 +1,23 @@
 class Solution {
 public:
-    void f(int i,int t,int c,int sum,bool &flag,vector<int>&ma,vector<int>&vis)
+    bool f(int i,int t,int c,int sum,vector<int>&ma,vector<int>&vis)
     {
-        if(flag)return;
-        if(sum>t)return;
+        if(c==4){return true;}
+        if(sum>t)return false;
         if(sum==t)
         {
-            c++;
-            sum=0;
-            i=ma.size()-1;
+            return f(ma.size()-1,t,c+1,0,ma,vis);
         }
-        if(c==4)
-        {flag=true;return;}
-        if(i<0)return;
+        if(i<0)return false;
+        
         if(!vis[i])
-        {sum+=ma[i];
-        vis[i]=1;
-        f(i-1,t,c,sum,flag,ma,vis);
-        sum-=ma[i];
-        vis[i]=0;
-        f(i-1,t,c,sum,flag,ma,vis);}
-        else f(i-1,t,c,sum,flag,ma,vis);
+        {
+            vis[i]=1;
+            if(f(i-1,t,c,sum+ma[i],ma,vis))return true;
+            vis[i]=0;
+        }
+        // return false;
+        return f(i-1,t,c,sum,ma,vis);
     }
     bool makesquare(vector<int>& ma) {
         int i=0;
@@ -40,7 +37,8 @@ public:
         sum=0;
         int c=0;
         vector<int>vis(n,0);
-        f(n-1,t,c,sum,flag,ma,vis);
-        return flag;
+        // vector<int>
+        return f(n-1,t,c,sum,ma,vis);
+        // return flag;
     }
 };
