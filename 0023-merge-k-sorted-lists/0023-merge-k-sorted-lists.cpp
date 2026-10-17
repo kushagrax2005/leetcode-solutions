@@ -32,11 +32,12 @@ public:
                 }
             }
             if(b==INT_MAX)break;
+            ans->next=lists[a];
             lists[a]=lists[a]->next;
-            ListNode*aa=new ListNode;
-            ans->next=aa;
+            // ListNode*aa=new ListNode;
+            // ans->next=aa;
             ans=ans->next;
-            ans->val=b;
+            // ans->val=b;
         }
         // ans=nullptr;
         return head->next;
