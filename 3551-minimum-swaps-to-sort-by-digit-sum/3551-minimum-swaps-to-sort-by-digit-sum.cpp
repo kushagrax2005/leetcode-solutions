@@ -33,7 +33,7 @@ public:
             {
                 node=q.front();
                 q.pop();
-                if(!vis[v[node].second] &&node!=v[node].second)
+                if(!vis[v[node].second])
                 {
                     q.push(v[node].second);
                     vis[v[node].second]=1;
