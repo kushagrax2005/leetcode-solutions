@@ -14,25 +14,28 @@ public:
         // ListNode* a=head;
         // ListNode* b=head;
         ListNode* p=head;
-        ListNode*head1=new ListNode;
-        ListNode*head2=new ListNode;
+        ListNode*head1=new ListNode(-1);
+        ListNode*head2=new ListNode(-1);
         ListNode*a=head1;
         ListNode*b=head2;
         while(p!=nullptr)
         {
             if(p->val<x)
             {
-                a->next=new ListNode(p->val);
-                a=a->next;
+                head1->next=p;
+                p=p->next;
+                head1=head1->next;
+                head1->next=nullptr;
             }
             else
             {
-                b->next=new ListNode(p->val);
-                b=b->next;
+                head2->next=p;
+                p=p->next;
+                head2=head2->next;
+                head2->next=nullptr;
             }
-            p=p->next;
         }
-        a->next=head2->next;
-        return head1->next;
+        head1->next=b->next;
+        return a->next;
     }
 };
