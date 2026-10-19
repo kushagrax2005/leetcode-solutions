@@ -30,7 +30,7 @@ public:
         }
         q=head;
         p=root->next;
-        // m[nullptr]=nullptr;
+        m[nullptr]=nullptr;
         while(q!=nullptr)
         {
             p->random=m[q->random];
