@@ -26,21 +26,19 @@ public:
                 a.push_back(a[k]);
             }
             l=0;
+            int q=mini;
             while(l<i-1)
             {
                 if(a[mini]>a[mini+1]){return 0;}
                 mini++;
                 l++;
             }
-            // l=0;
-            // while(l<i-1)
-            // {
-            //     if(a[mini_2]>a[mini_2+1]){flag_2=false;break;}
-            //     mini_2++;
-            //     l++;
-            // }
-            // if(flag==false&&flag_2==false)return 0;
-             sort(nums.begin()+j,nums.begin()+j+i);
+            for(int k=j;k<j+i;k++)
+            {
+                nums[k]=a[q];
+                q++;
+            }
+            // sort(nums.begin()+j,nums.begin()+j+i);
         }
         if(nums==v)return i;
         return 0;
