@@ -1,30 +1,47 @@
-
 class Solution {
 public:
     int countDaysTogether(string aa, string al, string ba, string bl) {
-        string s = max(aa, ba);
-        string e = min(al, bl);
-
-        if(s > e) return 0;
-
         vector<int>v={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-        int m1=(s[0]-'0')*10+s[1]-'0';
-        int d1=(s[3]-'0')*10+s[4]-'0';
-        int m2=(e[0]-'0')*10+e[1]-'0';
-        int d2=(e[3]-'0')*10+e[4]-'0';
-
+        int i=0;
         int ans=0;
-
-        if(m1==m2) return d2-d1+1;
-
-        ans+=v[m1-1]-d1+1;
-
-        for(int i=m1+1;i<m2;i++)
-            ans+=v[i-1];
-
-        ans+=d2;
-
+        if(aa <= ba)
+        {
+            if(al<ba)return 0;
+            string a=al<bl?al:bl;
+            //ba,a
+            int m1=(ba[0]-'0')*10+ba[1]-'0';
+            int d1=(ba[3]-'0')*10+ba[4]-'0';
+            int m2=(a[0]-'0')*10+a[1]-'0';
+            int d2=(a[3]-'0')*10+a[4]-'0';
+            int i=m1+1;
+            if(m1==m2){return d2-d1+1;}
+            while(i<m2)
+            {
+                ans+=v[i-1];
+                i++;
+            }
+            ans+=v[m1-1]-d1+1;
+            ans+=d2;
+        }
+        else
+        {
+            if(bl<aa)return 0;
+            string a=al<bl?al:bl;
+            //aa,a
+            int m1=(aa[0]-'0')*10+aa[1]-'0';
+            int d1=(aa[3]-'0')*10+aa[4]-'0';
+            int m2=(a[0]-'0')*10+a[1]-'0';
+            int d2=(a[3]-'0')*10+a[4]-'0';
+            int i=m1+1;
+            if(m1==m2){return d2-d1+1;}
+            while(i<m2)
+            {
+                ans+=v[i-1];
+                i++;
+            }
+            ans+=v[m1-1]-d1+1;
+            ans+=d2;
+        }
         return ans;
     }
 };
